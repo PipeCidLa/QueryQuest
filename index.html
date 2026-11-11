@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QueryQuest · Campamento SQL</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="app-header" hidden><div class="top"><div class="brand"><div class="mark" aria-hidden="true">Q</div><div><div class="word">QueryQuest</div><div class="micro">CAMPAMENTO SQL</div></div></div><div class="stats" id="header-stats" hidden><span class="pill">Estudiante</span><span class="pill" id="xp">0 XP</span><span class="pill" id="count">0 / 3 misiones</span></div></div></header>
+<div class="shell">
+<main>
+<section id="menu-view" class="entry-stage" aria-labelledby="menu-title">
+<form id="entry-form" class="entry-card">
+<div class="kicker">Reino de Datos</div><h1 id="menu-title" tabindex="-1">QueryQuest</h1>
+<p>Tu aventura SQL comienza aquí.</p>
+<div class="player-field"><label for="player-name">Tu nombre</label><input id="player-name" type="text" maxlength="30" placeholder="Escribe tu nombre" autocomplete="given-name"></div>
+<button class="btn primary" type="submit">Continuar →</button>
+</form></section>
+<section id="character-view" class="entry-stage" hidden aria-labelledby="character-title">
+<div class="entry-card"><div class="kicker">Prepara tu aventura</div><h1 id="character-title" tabindex="-1">Elige tu personaje</h1>
+<div class="character-picker"><button id="prev-character" class="btn" aria-label="Personaje anterior">‹</button>
+<div class="character-preview"><img id="character-preview" src="personajes/aventurero.png" alt=""><strong id="character-name" aria-live="polite">Aventurero</strong></div>
+<button id="next-character" class="btn" aria-label="Personaje siguiente">›</button></div>
+<div class="entry-actions"><button id="back-entry" class="btn">← Volver</button><button id="start" class="btn primary">Entrar al campamento</button></div>
+</div></section>
+<div id="camp-view" hidden>
+<section class="panel camp-head"><div><div class="kicker">Base del estudiante</div><h1 id="camp-title" tabindex="-1">Campamento</h1><p id="camp-welcome"></p></div><button id="back-menu" class="btn">← Menú principal</button></section>
+<div class="camp-grid">
+<section class="panel camp-scene" aria-label="Fogata en el bosque">
+<img src="campamento.svg" alt="Bosque nocturno en pixel art con una fogata">
+<div class="camp-character"><img class="player-sprite" id="camp-icon" src="personajes/aventurero.png" alt=""><strong id="camp-player">Estudiante</strong><small id="camp-avatar">Aventurero</small></div>
+</section>
+<div class="camp-stats">
+<div class="panel camp-stat"><span aria-hidden="true">◆</span><small>Nivel actual</small><strong id="camp-level">Inicial</strong></div>
+<div class="panel camp-stat"><span aria-hidden="true">✦</span><small>XP total</small><strong id="camp-xp">0 XP</strong></div>
+<div class="panel camp-stat"><span aria-hidden="true">▤</span><small>Misiones completadas</small><strong id="camp-count">0 / 3</strong></div>
+</div></div>
+<section class="panel camp-action"><div><h2>Aventura actual</h2><p id="camp-next">La cámara de los registros</p></div><button id="toggle-map" class="btn primary" aria-controls="map-view" aria-expanded="false">◈ Abrir mapa</button></section>
+<section hidden id="map-view" class="panel map-card" aria-labelledby="map-title">
+<div class="map-head"><div><div class="kicker">Ruta de práctica</div><h2 id="map-title" tabindex="-1">Mapa del Reino de Datos</h2><p class="micro" style="margin:0">Elige una región. Cada misión completada abre la siguiente.</p></div><div class="map-avatar"><img class="player-sprite" id="map-avatar-icon" src="personajes/aventurero.png" alt=""><span><span id="map-player-name">Estudiante</span><small id="map-avatar-name">Aventurero</small></span></div><div class="map-progress"><label class="micro" for="progress">Progreso de la demo</label><progress id="progress" value="0" max="3"></progress></div></div>
+<div class="map-scene">
+<svg class="landscape" viewBox="0 0 900 270" preserveAspectRatio="none" aria-hidden="true">
+<defs><pattern id="tiles" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0H20M0 0V20" stroke="#8b6ba1" opacity=".14"/></pattern></defs>
+<path fill="#38234f" d="M0 0h900v270H0z"/><path fill="#4c3267" d="M0 90h70V65h85V34h118v28h120v26h62v-40h124V23h145v22h92v32h84v193H0z"/>
+<path fill="#473b68" d="M0 192h70v-31h103v23h94v35h93v-25h115v-28h126v-40h114v21h85v27h100v96H0z"/>
+<path fill="#352f60" d="M0 233h120v-16h111v16h148v-12h154v-20h130v24h107v-15h130v60H0z"/>
+<path fill="url(#tiles)" d="M0 0h900v270H0z"/>
+<path d="M160 109 Q293 91 450 177 Q582 171 737 120" fill="none" stroke="#f6b969" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 11" opacity=".75"/>
+<path fill="#bf90c7" opacity=".8" d="M40 42h7v7h-7zm280 11h5v5h-5zm198 34h7v7h-7zm311-57h6v6h-6zm-40 178h5v5h-5zm-555 11h5v5h-5z"/>
+</svg>
+<nav class="map-route" id="quests" aria-label="Regiones y misiones"></nav>
+</div></section>
+</div>
+<div id="mission-view" hidden>
+<div class="hero panel mission-head"><div><div class="kicker" id="stage"></div><h1 id="title" tabindex="-1"></h1></div><button id="back-map" class="btn">← Volver al campamento</button></div>
+<div class="work mission-grid">
+<aside class="panel character" aria-label="Personaje de la misión">
+<div class="portrait"><img class="player-sprite" id="avatar-icon" src="personajes/aventurero.png" alt=""></div>
+<div class="dialogue"><span class="dialogue-label">Guía de la misión</span><p id="story"></p></div>
+<button class="btn" id="hint" aria-controls="hint-text" aria-expanded="false">Ver pista</button><p id="hint-text" class="hint" hidden></p>
+</aside>
+<section class="panel box console">
+<h2>Objetivo</h2><p id="goal" class="objective"></p>
+<h2><label for="sql">Editor SQL</label></h2><textarea id="sql" spellcheck="false" autocomplete="off" placeholder="Escribe tu consulta SQL aquí"></textarea>
+<div class="actions"><button class="btn primary" id="run">▶ Ejecutar</button><button class="btn" id="clear">Limpiar</button></div>
+<div class="result" id="result-panel" hidden><h2>Resultado</h2><div class="output"><p id="feedback" role="status">Aquí verás el resultado al pulsar Ejecutar.</p><div id="result" class="table-wrap"></div></div><button id="next" class="btn primary" hidden>Siguiente misión</button></div>
+<details class="dataset"><summary>Ver tabla <code>aldeanos</code></summary><div class="table-wrap" id="dataset"></div></details>
+<p class="note">Demo interactiva con comprobación SQL simulada.</p></section>
+</div></div></main></div>
+<script src="script.js" defer></script>
+</body>
+</html>
+
+

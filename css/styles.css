@@ -1,0 +1,715 @@
+/* QueryQuest - estilos */
+
+:root {
+  color-scheme: dark;
+
+  /* superficies */
+  --fondo: #170f24;
+  --panel: #261937;
+  --tarjeta: #322245;
+  --superficie: #211431;
+  --campo: #1a1127;
+
+  /* bordes */
+  --borde: #533969;
+  --borde-fuerte: #8956ae;
+
+  /* texto y acentos */
+  --texto: #fff2df;
+  --tenue: #cdbce1;
+  --dorado: #ffd166;
+  --naranja: #ffae66;
+  --verde: #a9e6ba;
+  --rojo: #ffb2bb;
+
+  --fuente-mono: monospace;
+  --radio: 12px;
+  --ancho-max: 1160px;
+}
+
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font: 16px/1.55 system-ui, sans-serif;
+}
+
+p { margin: 0 0 12px; }
+
+h2 {
+  margin: 0 0 10px;
+  font: bold 17px var(--fuente-mono);
+  color: var(--dorado);
+}
+
+code { color: var(--naranja); }
+
+button,
+textarea { font: inherit; }
+
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--dorado);
+  outline-offset: 3px;
+}
+
+[hidden] { display: none !important; }
+
+
+/* ---------- Componentes comunes ---------- */
+.panel {
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--panel);
+}
+
+.texto-menor,
+.sobretitulo {
+  color: var(--tenue);
+  font-size: 12px;
+}
+
+.sobretitulo {
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.boton {
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  padding: 7px 11px;
+  background: #422d58;
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.boton--principal {
+  background: var(--dorado);
+  border-color: var(--dorado);
+  color: #261437;
+}
+
+.etiqueta {
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: var(--dorado);
+  font: bold 13px var(--fuente-mono);
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  accent-color: var(--naranja);
+}
+
+/* tablas */
+.tabla-contenedor { overflow: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 8px 9px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--borde);
+}
+
+th {
+  background: #37244d;
+  color: var(--dorado);
+}
+
+/* personajes en pixel art */
+.sprite {
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* globo de diálogo */
+.dialogo {
+  position: relative;
+  margin: 18px 0 14px;
+  padding: 12px 14px;
+  background: #37234c;
+  color: var(--texto);
+  border: 1px solid #8759a7;
+  box-shadow: 0 3px #180f24;
+}
+
+.dialogo::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 24px;
+  width: 10px;
+  height: 10px;
+  background: #37234c;
+  border-top: 1px solid #8759a7;
+  border-left: 1px solid #8759a7;
+  transform: rotate(45deg);
+}
+
+.dialogo-etiqueta {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--dorado);
+  font: bold 11px var(--fuente-mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.dialogo p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* ---------- Cabecera y contenedor ---------- */
+.cabecera {
+  border-bottom: 1px solid var(--borde);
+  background: var(--superficie);
+}
+
+.barra {
+  max-width: var(--ancho-max);
+  margin: auto;
+  padding: 16px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: var(--naranja);
+  color: #27122d;
+  font: bold 21px var(--fuente-mono);
+  box-shadow: 4px 4px #58386d;
+}
+
+.nombre-app { font: bold 23px var(--fuente-mono); }
+
+.estadisticas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contenedor {
+  max-width: var(--ancho-max);
+  margin: auto;
+  padding: 24px 26px 40px;
+}
+
+
+/* ---------- Pantallas de entrada ---------- */
+.pantalla-entrada {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 14px;
+  background:
+    linear-gradient(#160d2760, #160d2780),
+    url("../assets/escenarios/campamento.svg") center / cover;
+  image-rendering: pixelated;
+}
+
+.tarjeta-entrada {
+  width: min(100%, 390px);
+  padding: 25px;
+  text-align: center;
+  background: #35244f;
+  border: 1px solid #9367b0;
+  border-radius: 13px;
+  box-shadow: 0 14px 35px #11091899;
+}
+
+.tarjeta-entrada h1 {
+  margin: 8px 0 14px;
+  font: bold clamp(22px, 5vw, 32px) var(--fuente-mono);
+  color: var(--dorado);
+}
+
+.tarjeta-entrada p { color: var(--tenue); }
+
+.tarjeta-entrada .boton--principal {
+  background: var(--naranja);
+  border-color: var(--naranja);
+}
+
+.acciones-entrada {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.campo-nombre {
+  max-width: 255px;
+  margin: 0 auto 18px;
+  text-align: left;
+}
+
+.campo-nombre label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--tenue);
+}
+
+.campo-nombre input {
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--campo);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+
+.selector-personaje {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.selector-personaje button { font: bold 24px var(--fuente-mono); }
+
+.previa-personaje {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  background: var(--superficie);
+  border: 1px solid #8256a4;
+  border-radius: 8px;
+  color: var(--dorado);
+}
+
+.previa-personaje img {
+  width: 112px;
+  height: 140px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+
+/* ---------- Campamento ---------- */
+.campamento-cabecera,
+.campamento-accion {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.campamento-cabecera h1 {
+  margin: 4px 0;
+  font: bold 30px var(--fuente-mono);
+  color: var(--dorado);
+}
+
+.campamento-cabecera p,
+.campamento-accion p {
+  margin: 0;
+  color: var(--tenue);
+}
+
+.campamento-accion { margin-bottom: 15px; }
+.campamento-accion h2 { margin: 0 0 4px; }
+
+.campamento-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.campamento-escena {
+  position: relative;
+  min-height: 270px;
+  overflow: hidden;
+  background: #221933;
+}
+
+.campamento-fondo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.campamento-personaje {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 9px;
+  padding: 7px 11px;
+  background: var(--superficie);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 7px;
+  overflow-wrap: anywhere;
+}
+
+.campamento-personaje .sprite {
+  grid-row: span 2;
+  width: 40px;
+  height: 45px;
+}
+
+.campamento-personaje small,
+.campamento-dato small { color: var(--tenue); }
+
+.campamento-datos {
+  display: grid;
+  gap: 9px;
+}
+
+.campamento-dato {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: center;
+  gap: 0 10px;
+  padding: 10px 14px;
+  background: #382750;
+}
+
+.campamento-dato span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  height: 36px;
+  background: #563d72;
+  border-radius: 6px;
+  color: var(--naranja);
+  font: bold 22px var(--fuente-mono);
+}
+
+.campamento-dato strong {
+  color: var(--dorado);
+  font: bold 19px var(--fuente-mono);
+}
+
+
+/* ---------- Mapa ---------- */
+.mapa {
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.mapa-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 15px 19px;
+}
+
+.mapa-cabecera h2 { margin: 4px 0; }
+.mapa-ayuda { margin: 0; }
+
+.mapa-jugador {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--dorado);
+  font: bold 14px var(--fuente-mono);
+}
+
+.mapa-jugador .sprite {
+  width: 36px;
+  height: 44px;
+}
+
+.mapa-jugador #jugador-mapa { overflow-wrap: anywhere; }
+
+.mapa-jugador small {
+  display: block;
+  color: var(--tenue);
+  font-size: 12px;
+}
+
+.mapa-progreso { width: 190px; }
+
+.mapa-escena {
+  position: relative;
+  isolation: isolate;
+  min-height: 255px;
+  background: #342249;
+}
+
+.paisaje {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+/* los botones de misión los crea el JS */
+.mapa-ruta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+  padding: 32px 5%;
+}
+
+.mapa-ruta .grupo {
+  min-width: 0;
+  text-align: center;
+}
+
+.mapa-ruta .grupo:nth-child(2) { margin-top: 76px; }
+.mapa-ruta .grupo:nth-child(3) { margin-top: 18px; }
+
+.nivel {
+  display: inline-block;
+  padding: 3px 7px;
+  background: var(--superficie);
+  border-radius: 4px;
+  color: var(--dorado);
+  font: bold 12px var(--fuente-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.mision {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 212px;
+  margin: 7px auto 0;
+  padding: 10px 11px;
+  text-align: center;
+  color: var(--texto);
+  background: var(--tarjeta);
+  border: 1px solid #a471bf;
+  border-radius: 7px;
+  box-shadow: 0 4px var(--fondo);
+}
+
+.mision[aria-current="true"] {
+  border: 2px solid var(--dorado);
+  background: #4d3464;
+}
+
+.mision:disabled {
+  color: var(--tenue);
+  background: #281c36;
+  border-color: #765789;
+}
+
+.mision small {
+  display: block;
+  margin-top: 4px;
+  color: var(--tenue);
+  font-size: 12px;
+}
+
+.mapa-icono {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+
+/* ---------- Misión ---------- */
+.mision-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 21px;
+  overflow: hidden;
+  background: linear-gradient(120deg, #402953, #281b3c);
+}
+
+.mision-cabecera h1 {
+  margin: 8px 0;
+  font: bold clamp(20px, 3.5vw, 30px) / 1.13 var(--fuente-mono);
+  color: var(--dorado);
+}
+
+.mision-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* columna del personaje */
+.guia {
+  min-width: 0;
+  padding: 17px;
+  align-self: stretch;
+}
+
+.retrato {
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 14px;
+  overflow: hidden;
+  background: var(--campo);
+  border: 2px dashed var(--borde-fuerte);
+  border-radius: 8px;
+}
+
+.retrato .sprite {
+  width: 88px;
+  height: 110px;
+}
+
+.pista {
+  padding-left: 10px;
+  border-left: 3px solid var(--naranja);
+  color: var(--tenue);
+  font-size: 14px;
+}
+
+/* columna del editor */
+.consola {
+  min-width: 0;
+  padding: 17px;
+}
+
+.objetivo,
+.salida {
+  padding: 10px 12px;
+  background: var(--campo);
+  border-radius: 7px;
+}
+
+.objetivo { border-left: 3px solid #a174c6; }
+
+textarea {
+  width: 100%;
+  min-height: 145px;
+  padding: 12px;
+  resize: vertical;
+  background: #150e20;
+  color: #f8e9ff;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font: 15px/1.55 var(--fuente-mono);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.resultado { margin-top: 15px; }
+
+.salida {
+  min-height: 78px;
+  border: 1px solid var(--borde);
+}
+
+.salida p {
+  margin: 0;
+  color: var(--tenue);
+}
+
+.salida p[data-estado="ok"]    { color: var(--verde); }
+.salida p[data-estado="error"] { color: var(--rojo); }
+
+#siguiente,
+.datos { margin-top: 12px; }
+
+.datos summary {
+  cursor: pointer;
+  color: var(--tenue);
+}
+
+.nota {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--tenue);
+}
+
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 900px) {
+  .mision-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .guia { order: 1; }
+}
+
+@media (max-width: 650px) {
+  .campamento-grid { grid-template-columns: 1fr; }
+  .campamento-escena { min-height: 200px; }
+}
+
+@media (max-width: 630px) {
+  .barra { padding: 13px 14px; }
+  .contenedor { padding: 14px 14px 40px; }
+  .mision-cabecera { padding: 15px; }
+}
+
+@media (max-width: 550px) {
+  .mapa-escena { min-height: 0; }
+
+  .mapa-ruta {
+    padding: 15px 9px;
+    gap: 6px;
+  }
+
+  .mapa-ruta .grupo:nth-child(2) { margin-top: 49px; }
+
+  .mapa-ruta .nivel,
+  .mapa-ruta .mision small { font-size: 10px; }
+
+  .mapa-ruta .mision {
+    padding: 7px 4px;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+}

@@ -1,15 +1,15 @@
-# Prototipo QueryQuest con Campamento
+# QueryQuest
 
-Abre `index.html` en el navegador. Mantén todos los archivos en la misma carpeta.
+Prototipo web en HTML, CSS y JavaScript. Abre index.html en el navegador para iniciar la demo. No requiere instalación ni servidor.
 
-| Archivo | Qué cambiar ahí |
+| Ruta | Contenido |
 |---|---|
-| `index.html` | Contenido y estructura: entrada, selección de personaje, campamento, mapa y misiones. |
-| `styles.css` | Colores, tamaños y distribución. Las variables de color están al comienzo. |
-| `script.js` | Datos de práctica, navegación, personajes, desbloqueos, puntos y validación simulada. |
-| `campamento.svg` | Ilustración del bosque y la fogata. |
-| `personajes/` | Imágenes de Aventurero y Aventurera. |
+| index.html | Pantallas de entrada, selección de personaje, campamento, mapa y misiones. |
+| css/styles.css | Paleta, estilos y distribución de las pantallas. |
+| js/script.js | Misiones de ejemplo, navegación, selección de personaje, puntos y desbloqueos. |
+| assets/escenarios/campamento.svg | Ilustración del bosque y la fogata. |
+| assets/personajes/ | Imágenes del Aventurero y la Aventurera. |
 
-Para incorporar los diseños de Felipe, reemplaza `personajes/aventurero.png` y `personajes/aventurera.png` por sus PNG transparentes, conservando los nombres.
+Felipe puede reemplazar los PNG en assets/personajes/ conservando los nombres. Para editar una misión, busca el arreglo missions en js/script.js. Si cambias una consigna, revisa también la respuesta esperada y el patrón de comprobación de la demo.
 
-Para editar una consigna o pista, busca `const missions` en `script.js`. Si cambias el ejercicio, revisa también `accepted()` y el resultado de ejemplo de la misión. Esta demo comprueba patrones predefinidos; no ejecuta SQL real ni usa PHP o MySQL.
+La demo comprueba patrones de ejemplo en JavaScript; no ejecuta consultas SQL reales ni requiere PHP o MySQL.

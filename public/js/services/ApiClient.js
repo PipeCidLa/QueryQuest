@@ -31,4 +31,5 @@ async function request(metodo, ruta, body) {
 export const ApiClient = {
   get: (ruta) => request('GET', ruta),
   post: (ruta, body) => request('POST', ruta, body),
+  patch: (ruta, body) => request('PATCH', ruta, body),
 };

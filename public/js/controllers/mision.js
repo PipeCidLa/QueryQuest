@@ -13,7 +13,6 @@ import {
   alternarPistaUI,
   limpiarEditorUI,
   mostrarBotonSiguiente,
-  seleccionarMisionActiva,
 } from '../views/mision.js';
 import { refrescarMapaYHeader } from './campamento.js';
 
@@ -36,14 +35,14 @@ async function ejecutarConsulta() {
   mostrarMensaje('Ejecutando…');
 
   try {
-    const r = await MissionService.ejecutar(estado.misionActual.id, consulta);
+    const r = await MissionService.ejecutar(consulta);
     pintarResultado(r);
     pintarMensajeResultado(r);
 
     if (r.estado === 'correcto') {
       await refrescarMapaYHeader();
-      const siguiente = buscarSiguienteMision(estado.misionActual.numeroOrden);
-      mostrarBotonSiguiente(Boolean(siguiente) && siguiente.estadoUsuario !== 'bloqueada');
+      const siguiente = buscarSiguienteMision(estado.misionActual.numero_orden);
+      mostrarBotonSiguiente(Boolean(siguiente) && siguiente.estado_usuario !== 'bloqueada');
     } else {
       mostrarBotonSiguiente(false);
     }
@@ -54,19 +53,19 @@ async function ejecutarConsulta() {
   }
 }
 
-function buscarSiguienteMision(numeroOrden) {
+function buscarSiguienteMision(numero_orden) {
   return estado.regiones
     .flatMap(r => r.misiones)
-    .find(m => m.numeroOrden === numeroOrden + 1) ?? null;
+    .find(m => m.numero_orden === numero_orden + 1) ?? null;
 }
 
 async function siguienteMision() {
   const actual = estado.misionActual;
   if (!actual) return;
-  const siguiente = buscarSiguienteMision(actual.numeroOrden);
-  if (!siguiente || siguiente.estadoUsuario === 'bloqueada') return;
+  const siguiente = buscarSiguienteMision(actual.numero_orden);
+  if (!siguiente || siguiente.estado_usuario === 'bloqueada') return;
   const { pintarMisionEnPantalla } = await import('../views/mision.js');
-  const mision = await MissionService.abrir(siguiente.id);
+  const mision = await MissionService.abrir(siguiente.id_mision);
   pintarMisionEnPantalla(mision);
 }
 

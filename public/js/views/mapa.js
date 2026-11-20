@@ -33,15 +33,15 @@ export function renderMapa(alSeleccionarMision) {
     nivel.textContent = region.nivel;
 
     region.misiones.forEach(m => {
-      const bloqueada = m.estadoUsuario === ESTADOS_MISION.BLOQUEADA;
-      const completada = m.estadoUsuario === ESTADOS_MISION.COMPLETADA;
+      const bloqueada = m.estado_usuario === ESTADOS_MISION.BLOQUEADA;
+      const completada = m.estado_usuario === ESTADOS_MISION.COMPLETADA;
 
       const boton = document.createElement('button');
       boton.className = 'mision';
       boton.type = 'button';
       boton.disabled = bloqueada;
-      boton.dataset.misionId = String(m.id);
-      if (estado.misionActual?.id === m.id) {
+      boton.dataset.misionId = String(m.id_mision);
+      if (estado.misionActual?.id_mision === m.id_mision) {
         boton.setAttribute('aria-current', 'true');
       }
 
@@ -58,7 +58,7 @@ export function renderMapa(alSeleccionarMision) {
           : 'Disponible';
 
       boton.append(icono, document.createTextNode(m.titulo), estadoTexto);
-      boton.onclick = () => alSeleccionarMision(m.id);
+      boton.onclick = () => alSeleccionarMision(m.id_mision);
 
       grupo.append(boton);
     });

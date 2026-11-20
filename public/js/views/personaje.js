@@ -7,8 +7,12 @@ import { PERSONAJES } from '../config.js';
 import { estado } from '../state/GameState.js';
 import { $ } from '../utils/dom.js';
 
+export function personajeActual() {
+  return PERSONAJES[estado.personajeActual] ?? PERSONAJES[0];
+}
+
 export function aplicarPersonaje() {
-  const { nombre, imagen } = PERSONAJES[estado.personajeActual] ?? PERSONAJES[0];
+  const { nombre, imagen } = personajeActual();
 
   ['imagen-previa', 'icono-campamento', 'icono-mapa', 'icono-mision']
     .forEach(id => { $(id).src = imagen; });

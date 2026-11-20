@@ -3,7 +3,7 @@
 
 
 import { ApiClient } from './ApiClient.js';
-import { estado } from '../state/GameState.js';
+import { estado, resetEstadoSesion } from '../state/GameState.js';
 
 export const AuthService = {
   async registrar({ nombre_usuario, correo, password, nombre_visible, personaje }) {
@@ -21,7 +21,7 @@ export const AuthService = {
   },
 
   async logout() {
-    await ApiClient.post('/auth/logout').catch(() => {});
-    estado.usuario = null;
+    await ApiClient.post('/auth/logout');
+    resetEstadoSesion();
   },
 };

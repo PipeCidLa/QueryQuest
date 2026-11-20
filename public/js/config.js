@@ -13,3 +13,8 @@ export const PERSONAJES = [
   { codigo: 'aventurero', nombre: 'Aventurero', imagen: 'assets/personajes/aventurero.png' },
   { codigo: 'aventurera', nombre: 'Aventurera', imagen: 'assets/personajes/aventurera.png' },
 ];
+export const ESTADOS_MISION = Object.freeze({
+  BLOQUEADA: 'bloqueada',
+  DISPONIBLE: 'disponible',
+  COMPLETADA: 'completada',
+});

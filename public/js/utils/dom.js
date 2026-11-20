@@ -39,3 +39,11 @@ export function enfocar(id) {
   const el = $(id);
   if (el && typeof el.focus === 'function') el.focus();
 }
+export function mostrarMensajeAuth(texto, estado = '') {
+  ['mensaje-auth', 'mensaje-personaje'].forEach(id => {
+    const mensaje = $(id);
+    mensaje.textContent = texto;
+    mensaje.dataset.estado = estado;
+    mensaje.hidden = !texto;
+  });
+}

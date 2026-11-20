@@ -1,7 +1,7 @@
 // =============================================================================
 // public/js/views/mision.js
 // Pinta la pantalla de misión: contexto, consigna, pista, resultado.
-// Los nombres de campo vienen del modelo Mission (contextoNarrativo, consigna).
+// Los nombres de campo vienen del modelo Mission (contexto_narrativo, consigna).
 // =============================================================================
 
 import { estado } from '../state/GameState.js';
@@ -9,9 +9,9 @@ import { $, crearTabla, mostrarMensaje, reiniciarResultado } from '../utils/dom.
 import { mostrarVista } from './navegacion.js';
 
 export function pintarMisionEnPantalla(mision) {
-  $('etapa').textContent = `${mision.nivel} · Misión ${String(mision.numeroOrden).padStart(2, '0')}`;
+  $('etapa').textContent = `${mision.nivel} · Misión ${String(mision.numero_orden).padStart(2, '0')}`;
   $('titulo-mision').textContent = 'Misión: ' + mision.titulo;
-  $('historia').textContent = mision.contextoNarrativo;
+  $('historia').textContent = mision.contexto_narrativo;
   $('objetivo').textContent = mision.consigna;
   $('sql').value = '';
 
@@ -57,5 +57,5 @@ export function mostrarBotonSiguiente(visible) {
 export function seleccionarMisionActiva(id) {
   return estado.regiones
     .flatMap(r => r.misiones)
-    .find(m => m.id === id) ?? null;
+    .find(m => m.id_mision === id) ?? null;
 }

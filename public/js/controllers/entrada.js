@@ -9,6 +9,7 @@ import { estado } from '../state/GameState.js';
 import { $, mostrarMensajeAuth } from '../utils/dom.js';
 import { mostrarVista, abrirMapa } from '../views/navegacion.js';
 import { aplicarPersonaje, personajeActual } from '../views/personaje.js';
+import { ApiClient } from '../services/ApiClient.js';
 import { AuthService } from '../services/AuthService.js';
 import { MissionService } from '../services/MissionService.js';
 import { ProgressService } from '../services/ProgressService.js';
@@ -16,8 +17,8 @@ import { renderHeader } from '../views/header.js';
 import { renderMapa } from '../views/mapa.js';
 
 function cambiarPersonaje(paso) {
-  estado.personajeIndice =
-    (estado.personajeIndice + paso + PERSONAJES.length) % PERSONAJES.length;
+  estado.personajeActual =
+    (estado.personajeActual + paso + PERSONAJES.length) % PERSONAJES.length;
   aplicarPersonaje();
 }
 
@@ -39,9 +40,9 @@ async function iniciarSesion(evento) {
   const nombreUsuario = $('nombre-usuario').value.trim();
   const password = $('password').value;
   try {
-    await AuthService.login({ nombreUsuario, password });
-    estado.personajeIndice = PERSONAJES.findIndex(p => p.codigo === estado.usuario.personaje);
-    if (estado.personajeIndice < 0) estado.personajeIndice = 0;
+    await AuthService.login({ nombre_usuario: nombreUsuario, password });
+    estado.personajeActual = PERSONAJES.findIndex(p => p.codigo === estado.usuario.personaje);
+    if (estado.personajeActual < 0) estado.personajeActual = 0;
     aplicarPersonaje();
     mostrarVista('personaje', 'titulo-personaje');
   } catch (e) {
@@ -56,12 +57,16 @@ async function registrarCuenta() {
     mostrarMensajeAuth('Usuario y contraseña (mín. 6) son obligatorios.', 'error');
     return;
   }
+  if (!$('correo').value.trim() || !$('correo').checkValidity()) {
+    mostrarMensajeAuth('Escribe un correo valido para registrar tu cuenta.', 'error');
+    return;
+  }
   try {
     await AuthService.registrar({
-      nombreUsuario,
-      correo: `${nombreUsuario}@demo.local`,
+      nombre_usuario: nombreUsuario,
+      correo: $('correo').value.trim(),
       password,
-      nombreVisible: nombreUsuario,
+      nombre_visible: nombreUsuario,
       personaje: personajeActual().codigo,
     });
     aplicarPersonaje();
@@ -74,12 +79,8 @@ async function registrarCuenta() {
 async function comenzarAventura() {
   try {
     // Persistir el personaje elegido (opcional si ya lo guardaste en registro).
-    await fetch('/api/usuarios/me', {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ personaje: personajeActual().codigo }),
-    }).catch(() => {});
+    const { usuario } = await ApiClient.patch('/usuarios/me', { personaje: personajeActual().codigo });
+    estado.usuario = usuario;
     await irAlCampamento();
   } catch (e) {
     mostrarMensajeAuth(e.message, 'error');
@@ -88,6 +89,7 @@ async function comenzarAventura() {
 
 async function cerrarSesion() {
   await AuthService.logout();
+  $('password').value = '';
   mostrarVista('menu', 'titulo-menu');
   mostrarMensajeAuth('');
 }

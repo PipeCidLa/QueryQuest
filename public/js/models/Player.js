@@ -21,8 +21,8 @@ export class Player {
   }
 
   get nivelActual() {
-    if (this.misiones_completadas >= 21) return 'Aplicación';
-    if (this.misiones_completadas >= 11) return 'Intermedio';
+    if (this.misiones_completadas >= 20) return 'Aplicación';
+    if (this.misiones_completadas >= 10) return 'Intermedio';
     if (this.misiones_completadas >= 1)  return 'Inicial';
     return 'Inicial';
   }

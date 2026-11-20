@@ -31,4 +31,8 @@ export function renderHeader() {
   const siguiente = estado.regiones
     .flatMap(r => r.misiones)
     .find(m => m.estado_usuario === 'disponible');
-  $('proxima-aventura').textContent = siguiente ? siguiente.t
+  $('proxima-aventura').textContent = siguiente
+    ? siguiente.titulo
+    : hechas >= 30 ? 'Has completado la aventura.' : 'No hay misiones disponibles.';
+  $('bienvenida').textContent = `Bienvenido a tu campamento, ${nombre}.`;
+}

@@ -1,0 +1,35 @@
+QUERYQUEST - CARGA INICIAL INCREMENTAL
+
+Orden para una instalacion local nueva:
+1. Importar schema.app.sql y schema.sandbox.sql.
+2. Importar seed.sandbox.sql (dataset tabularia_v1).
+3. Importar seed.app.sql (regiones, logros y primera mision).
+
+Se puede importar cada archivo desde phpMyAdmin seleccionando Importar.
+Guardar los SQL en UTF-8. No ejecutar reset.sh para repetir la carga:
+los scripts de estructura CREATE TABLE corresponden a una instalacion nueva.
+Las semillas agregan los registros ausentes; no borran ni actualizan existentes.
+Sus IDs de practica estan reservados para el dataset inicial. No mezclar con
+otro dataset. Si existen datos distintos, revisar antes de importar.
+
+Estado de esta etapa:
+- 3 regiones y 3 logros definidos.
+- Solo la mision 01 tiene contenido publicado. Las otras 29 siguen pendientes.
+- 10 habitantes y datos narrativos en las ocho tablas del sandbox.
+- catalogo_inicial es una cuenta tecnica de autoria, deshabilitada y sin
+  contrasena de acceso distribuida. No es una cuenta de Carla ni de Felipe.
+- No se crean estudiantes, cursos, intentos, progreso ni logros obtenidos.
+- No se crean aun las credenciales MySQL de la aplicacion y del evaluador.
+
+Consulta de la mision 01:
+SELECT * FROM habitantes;
+Resultado: 10 filas, columnas id, nombre, profesion y experiencia.
+El orden no forma parte del criterio de esta mision.
+
+El dataset incluye nombres repetidos, experiencia igual a 3, empates, rutas
+cerradas y minas operativas sin rutas o sin especialistas para probar las
+misiones posteriores. Que exista la semilla no significa que esas misiones
+ya esten implementadas o evaluadas.
+
+No modificar tabularia_v1 despues de utilizarlo en evaluaciones: cualquier
+cambio posterior de sus datos debe gestionarse como una nueva version.

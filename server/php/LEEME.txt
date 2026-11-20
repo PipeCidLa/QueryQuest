@@ -1,0 +1,48 @@
+QUERYQUEST - CONEXIONES PHP
+
+Esta etapa prepara la conexión y los permisos. Todavía no reemplaza las rutas
+Express ni permite entrar al juego desde PHP. No se instala ninguna dependencia.
+
+Archivos de server/php:
+- config.php: lee y valida la configuración local.
+- conexiones.php: abre PDO para la aplicación y el entorno de práctica.
+- setup_local.php: crea las cuentas MySQL locales y genera sus claves.
+- check_connections.php: verifica conexiones y permisos desde la terminal.
+
+Preparación en el computador de Felipe:
+1. Iniciar el servidor MySQL/MariaDB de XAMPP.
+2. Importar las estructuras y semillas siguiendo server/db/LEEME_semillas.txt.
+3. Desde la raíz del proyecto, ejecutar:
+   C:\xampp\php\php.exe server/php/setup_local.php
+4. Comprobar:
+   C:\xampp\php\php.exe server/php/check_connections.php
+
+setup_local.php utiliza por defecto root sin contraseña en 127.0.0.1:3306,
+como la instalación local comprobada. Si el administrador es diferente, pasar
+DB_SETUP_HOST, DB_SETUP_PORT, DB_SETUP_USER y DB_SETUP_PASS como variables de
+entorno de la terminal. No guardar la clave de root en los archivos del proyecto.
+La conexión de la aplicación nunca utiliza root.
+
+La configuración real se guarda en .env.php-local, fuera de public/, excluida de
+Git. Cada integrante genera sus propias claves. No compartir ese archivo ni
+subirlo al repositorio. La plantilla .env.php-local.example sí se comparte.
+Las cuentas qq_app y qq_sandbox se crean solo para conexiones desde 127.0.0.1.
+Si ya existen, setup_local.php se detiene sin cambiarles las claves o permisos.
+
+Los scripts setup_local.php y check_connections.php solo funcionan por CLI.
+Cuando se configure el servidor web, su raíz pública será public/, no la raíz
+del repositorio. Así no quedan expuestos ni las credenciales ni estos scripts.
+
+Permisos:
+- qq_app: SELECT, INSERT, UPDATE y DELETE en queryquest_app.
+- qq_sandbox: SELECT en queryquest_sandbox; sin acceso a queryquest_app.
+- Ninguna de las dos cuentas puede crear tablas o administrar usuarios.
+
+check_connections.php prueba la consulta de la primera misión y rechazos de
+INSERT, UPDATE, DELETE y lectura de usuarios con el acceso de práctica.
+Comprueba además una escritura de aplicación dentro de una transacción que
+se revierte. No deja cuentas, progreso ni intentos de prueba. Puede avanzar el
+contador AUTO_INCREMENT; los identificadores no tienen que ser consecutivos.
+
+Pendiente: evaluador SQL con límites de tiempo y filas, sesiones, rutas PHP y
+conexión del frontend. Los permisos de lectura no sustituyen esos controles.

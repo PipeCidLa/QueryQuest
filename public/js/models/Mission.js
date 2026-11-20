@@ -1,0 +1,29 @@
+// Mission.js — Modelo de misión (versión vigente publicada).
+// Qué hace: describe la forma de una misión que llega de GET /api/misiones/:id
+//           y expone helpers de presentación (etiqueta de etapa, textos).
+// Qué NO hace: no pide datos (eso es MissionService), no pinta DOM (eso es views/mision.js).
+
+export class Mission {
+  constructor(dto) {
+    this.id_mision = dto.id_mision;
+    this.id_version = dto.id_version;
+    this.titulo = dto.titulo;
+    this.numero_orden = dto.numero_orden;
+    this.nivel = dto.nivel;
+    this.region_nombre = dto.region_nombre;
+    this.contexto_narrativo = dto.contexto_narrativo;
+    this.consigna = dto.consigna;
+    this.pista = dto.pista ?? '';
+    this.dataset_codigo = dto.dataset_codigo;
+    this.xp_recompensa = dto.xp_recompensa;
+  }
+
+  get etiquetaEtapa() {
+    const num = String(this.numero_orden).padStart(2, '0');
+    return `${this.nivel} · Misión ${num}`;
+  }
+
+  get tituloPantalla() {
+    return `Misión: ${this.titulo}`;
+  }
+}

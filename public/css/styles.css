@@ -28,6 +28,17 @@
 }
 
 
+/* ---------- Ajustes para regiones con varias misiones ---------- */
+.mapa-ruta .grupo { display: grid; gap: 6px; }
+.mapa-ruta .grupo .mision + .mision { margin-top: 0; }
+
+/* Estado "completada" (lo pone views/mapa.js con data-estado) */
+.mision[data-estado="completada"] {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 1px var(--verde), 0 4px var(--fondo);
+}
+.mision[data-estado="bloqueada"] { opacity: .75; }
+
 /* ---------- Base ---------- */
 *,
 *::before,

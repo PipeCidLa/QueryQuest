@@ -1,4 +1,10 @@
 <!doctype html>
+<!--
+  index.html — Punto de entrada del front.
+  Responsabilidad: estructura de las 4 pantallas (menú, personaje, campamento, misión).
+  NO contiene lógica: los IDs son el contrato que consumen las vistas (js/views/*)
+  y los controladores (js/controllers/*). El único script es el bootstrap modular.
+-->
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -23,7 +29,7 @@
       <div class="estadisticas" id="estadisticas-cabecera" hidden>
         <span class="etiqueta" id="jugador-cabecera">Estudiante</span>
         <span class="etiqueta" id="xp">0 XP</span>
-        <span class="etiqueta" id="contador">0 / 3 misiones</span>
+        <span class="etiqueta" id="contador">0 / 30 misiones</span>
       </div>
     </div>
   </header>
@@ -106,7 +112,7 @@
             <div class="panel campamento-dato">
               <span aria-hidden="true">▤</span>
               <small>Misiones completadas</small>
-              <strong id="misiones-campamento">0 / 3</strong>
+              <strong id="misiones-campamento">0 / 30</strong>
             </div>
           </div>
         </div>
@@ -114,7 +120,7 @@
         <section class="panel campamento-accion">
           <div>
             <h2>Aventura actual</h2>
-            <p id="proxima-aventura">La cámara de los registros</p>
+            <p id="proxima-aventura">Cargando…</p>
           </div>
           <button id="alternar-mapa" class="boton boton--principal" aria-controls="vista-mapa" aria-expanded="false">◈ Abrir mapa</button>
         </section>
@@ -138,7 +144,7 @@
 
             <div class="mapa-progreso">
               <label class="texto-menor" for="progreso">Progreso de la demo</label>
-              <progress id="progreso" value="0" max="3"></progress>
+              <progress id="progreso" value="0" max="30"></progress>
             </div>
           </div>
 
@@ -159,7 +165,7 @@
               <path fill="#bf90c7" opacity=".8"
                     d="M40 42h7v7h-7zm280 11h5v5h-5zm198 34h7v7h-7zm311-57h6v6h-6zm-40 178h5v5h-5zm-555 11h5v5h-5z"/>
             </svg>
-            <!-- Los botones de misión los crea script.js -->
+            <!-- Los botones de región/misión los crea js/views/mapa.js -->
             <nav class="mapa-ruta" id="ruta-misiones" aria-label="Regiones y misiones"></nav>
           </div>
         </section>
@@ -216,11 +222,13 @@
             </div>
 
             <details class="datos">
-              <summary>Ver tabla <code>aldeanos</code></summary>
-              <div class="tabla-contenedor" id="tabla-datos"></div>
+              <summary>Ver tablas del sandbox</summary>
+              <div class="tabla-contenedor" id="tabla-datos">
+                <p class="texto-menor">Consulta la estructura de la base de práctica desde tu editor.</p>
+              </div>
             </details>
 
-            <p class="nota">Demo interactiva con comprobación SQL simulada.</p>
+            <p class="nota">Las consultas se ejecutan en una base de datos de práctica aislada y de solo lectura.</p>
           </section>
 
         </div>
@@ -229,6 +237,7 @@
     </main>
   </div>
 
-  <script src="js/script.js" defer></script>
+  <!-- Bootstrap modular: main.js importa el resto -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

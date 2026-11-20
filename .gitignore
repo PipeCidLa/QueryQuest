@@ -1,0 +1,62 @@
+# =============================================================================
+# .gitignore
+# Excluye dependencias, secretos, artefactos de build y basura del sistema.
+# =============================================================================
+
+# --- Dependencias -------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+
+# --- Secretos y configuración local -------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Logs ---------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Caché y build ------------------------------------------------------------
+dist/
+build/
+coverage/
+.cache/
+.parcel-cache/
+.vite/
+.next/
+.nuxt/
+
+# --- Tests --------------------------------------------------------------------
+.nyc_output/
+
+# --- Sistema operativo --------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editores / IDE -----------------------------------------------------------
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Volcados y artefactos de BD locales --------------------------------------
+*.sql.gz
+*.dump
+dumps/
+backups/
+
+# --- Archivos temporales ------------------------------------------------------
+tmp/
+temp/
+*.tmp
+*.bak

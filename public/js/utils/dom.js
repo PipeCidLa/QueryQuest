@@ -1,7 +1,4 @@
-// dom.js — Helpers de DOM sin lógica de negocio.
-// atajo `$`, construcción segura de tablas, mensajes de resultado,
-// reseteo del panel de resultado y foco accesible.
-
+// Crea tablas con texto y centraliza mensajes, resultados y foco.
 
 export const $ = id => document.getElementById(id);
 

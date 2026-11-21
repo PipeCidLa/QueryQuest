@@ -1,0 +1,84 @@
+QUERYQUEST - PRUEBAS DEL NIVEL INICIAL
+Fecha: 20 de noviembre de 2026.
+Entorno: PHP 8.2.4, MariaDB 10.4.28 de XAMPP y Edge.
+
+Ejecutado: C:\xampp\php\php.exe server/php/tests/region_inicial_tests.php
+Resultado: 53 comprobaciones satisfactorias de evaluacion.
+- Incluye los controles iniciales de seguridad, limites de filas y tiempo.
+- Las diez soluciones se aceptan con y sin punto y coma.
+- Se distinguen nombres repetidos, DISTINCT, limites numericos y empates.
+- Las misiones 06, 07 y 10 rechazan un orden incorrecto de filas.
+- Se admiten consultas equivalentes cuando cumplen la consigna.
+- Una version sin criterio verificado no hereda la evaluacion anterior.
+
+Prueba de navegador con PHP y MariaDB reales:
+- Primera region con diez misiones; nueve comienzan bloqueadas.
+- El servidor rechaza abrir o ejecutar una mision que aun esta bloqueada.
+- El editor vacio muestra un mensaje visible sin registrar un intento SQL.
+- Recorrido completo de las diez misiones desde la interfaz.
+- Total final: 500 XP, diez completadas y un logro El archivo en orden.
+- El logro aparece en el campamento y se conserva al recargar.
+- Repetir la mision 10 no agrega puntos ni otro logro.
+- Se habilita el camino a la segunda region; no se muestran ejercicios inexistentes.
+- Revision visual en escritorio y 390 px, sin desbordamiento horizontal.
+- Sin errores JavaScript en el recorrido completo.
+
+Prueba de concurrencia:
+- Segunda cuenta temporal completa las primeras nueve misiones.
+- Dos procesos PHP separados resuelven la mision 10 de esa misma cuenta.
+- La suma de recompensas devueltas fue 50 XP; solo uno entrego el logro.
+- La base final conservo 500 XP y un solo logro para esa cuenta.
+
+Las cuentas temporales y sus datos dependientes se eliminaron al terminar.
+La carga de misiones se repitio sin duplicar contenido y sin modificar los
+intentos, puntos ni logros que existian antes de la prueba.
+
+Alcance: nivel Inicial. Faltan veinte misiones, panel docente, recuperacion
+por correo, constancia, pruebas de esos modulos y despliegue definitivo.
+Estas pruebas no equivalen a una certificacion de seguridad.
+
+REVISION ANTERIOR DE EXPERIENCIA Y RETROALIMENTACION
+La disposicion lateral descrita aqui fue sustituida por el campamento compacto.
+Comando: C:\xampp\php\php.exe server/php/tests/retroalimentacion_tests.php
+Resultado: 76 comprobaciones satisfactorias (53 anteriores y 23 nuevas).
+- Columna experencia: identifica el error y sugiere experiencia.
+- Tabla habitates: sugiere habitantes.
+- Operador = >: explica >= y el uso sin espacios.
+- Mision 09: explica los repetidos sin exigir orden.
+- Filas correctas en orden incorrecto: indica que hay que revisar el desempate.
+- Pista LIMIT presente y publicada como version nueva.
+- Publicacion repetida sin duplicar versiones ni alterar avance anterior.
+
+Navegador con PHP y MariaDB reales:
+- Diez misiones completas con mensajes nuevos y esquema legible.
+- Mapa contiguo al boton; logros laterales en escritorio y plegables en movil.
+- Modal narrativo solo al obtener el logro, con insignia y 500 XP.
+- No se repite al resolver de nuevo ni al recargar.
+- Teclado: Tab permanece en el dialogo; Escape permite cerrarlo.
+- Parallax responde al scroll y se desactiva con movimiento reducido.
+- Sin errores JavaScript ni desbordamiento horizontal a 390 px.
+- Cuentas temporales retiradas al finalizar.
+
+REVISION DEL CAMPAMENTO COMPACTO Y PREPARACION DEL COMMIT
+Fecha: 20 de noviembre de 2026.
+- Sintaxis correcta en 53 archivos JavaScript y 19 PHP.
+- Referencias de index.html e imports de public/js existentes; sin IDs duplicados.
+- check_connections.php: conexiones y permisos comprobados en MariaDB local.
+- retroalimentacion_tests.php: 76 comprobaciones satisfactorias; sin crear
+  intentos, progreso ni logros. La prueba de escritura de conexiones se revierte.
+- Interfaz comprobada en Edge con respuestas de API simuladas para estados de
+  cero y diez misiones: mapa desplegable, diez botones de mision, resumen de
+  logro, catalogo plegable y aviso de las proximas misiones aun no publicadas.
+- Anchos de 1366, 390 y 320 px sin desborde horizontal ni errores JavaScript.
+- Tipografia conservada; nombre y estadisticas repetidas ocultos en la barra
+  del campamento; Cerrar sesion permanece visible.
+- README.md, GUIA_DE_USO.txt y las guias del servidor describen el arranque PHP,
+  la instalacion de Felipe y la sustitucion de recursos visuales.
+- El codigo anterior de Express se conserva identificado como referencia.
+- .env.php-local ignorado y fuera del indice; plantilla disponible para Git.
+- git diff --check sin errores de espacios.
+
+La comprobacion del campamento usa datos de prueba en el navegador y no repite
+el recorrido completo contra la API real descrito en las pruebas anteriores.
+No se modificaron la configuracion de Git ni los datos de progreso existentes.
+No se ejecutaron commit ni push.

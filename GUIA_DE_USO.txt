@@ -1,0 +1,102 @@
+QUERYQUEST - GUÍA DE USO DEL AVANCE FUNCIONAL
+Carla Rosso y Felipe Cid · PEP801 · AIEP Valparaíso
+
+INICIO
+1. Iniciar MySQL en XAMPP (MariaDB en el entorno local).
+2. Ejecutar iniciar_php.bat desde la raíz del proyecto.
+3. Abrir http://127.0.0.1:8080 y mantener abierta la terminal del servidor.
+   Ctrl+C detiene el servidor. No usar Live Server ni abrir el HTML directamente.
+
+La instalación completa para otro computador está en README.md. Después de un
+pull, conservar .env.php-local y la base existente. No ejecutar reset.sh ni
+repetir setup_local.php si ya están creadas las cuentas y la configuración.
+
+RECORRIDO PARA PRESENTAR
+- Crear cuenta: usuario, contraseña, nombre para mostrar y correo. Luego elegir
+  personaje y entrar al campamento. Una cuenta existente entra con usuario y clave.
+- En el campamento, la bienvenida queda junto al bosque y el personaje aparece
+  al lado de la fogata. El resumen de nivel, XP y misiones está en una fila.
+- Abrir el mapa, seleccionar El archivo de Tabularia y abrir la misión disponible.
+- Leer la consigna, consultar la estructura de habitantes y abrir la pista si hace
+  falta. El editor acepta Ctrl+Enter o el botón Ejecutar.
+- El resultado aparece al ejecutar. Limpiar vacía el editor y oculta el resultado.
+- Una respuesta correcta entrega 50 XP solo la primera vez y abre la misión
+  siguiente. Los ejercicios completados se pueden repetir.
+- Al terminar las diez misiones aparece el cierre de historia con la insignia.
+  Se cierra con Escape o Volver al campamento. No se repite al volver a resolver.
+- El campamento muestra el último logro y permite abrir Ver todos los logros.
+  El mapa se despliega debajo de su botón y antes de los logros.
+- La primera región suma 500 XP. Recargar o volver a entrar conserva el personaje,
+  las misiones, los puntos y el logro. El camino al almacén queda abierto, con
+  un aviso de que sus misiones se publicarán después.
+
+VALIDACIONES PARA REVISAR
+- Campos vacíos y credenciales incorrectas: mensaje junto al formulario.
+- Usuario nuevo: 3 a 15 caracteres; empieza con letra sin tilde y termina con letra
+  o número. Admite letras, números, punto, guion y guion bajo, sin separadores
+  consecutivos, espacios ni emojis. Las cuentas anteriores conservan su acceso.
+- Nombre visible: 2 a 100 letras; admite tildes, espacios, apóstrofo y guion.
+- Contraseña: la regla técnica actual admite de 6 a 72 bytes; en el registro se
+  rechazan claves compuestas solo por espacios. PHP vuelve a validar los campos.
+- Editor vacío: mensaje visible sin registrar un intento SQL.
+- SELECT con o sin punto y coma final: ambos se admiten.
+- Error de escritura como experencia: señala la columna y sugiere experiencia.
+- Repetir un acierto: conserva los puntos y no vuelve a entregar el logro.
+- Misiones bloqueadas: el servidor rechaza su apertura y ejecución.
+- Escrituras, varias sentencias o acceso a queryquest_app: rechazados.
+- Misiones 06, 07 y 10: el orden y el desempate forman parte de la consigna.
+- Misiones 05 y 08: los datos incluyen experiencia igual a tres para comprobar
+  correctamente los límites de cada filtro.
+- Misión 02: DISTINCT elimina un nombre repetido y no cumple su consigna.
+
+CÓMO FUNCIONA
+El navegador envía la consulta a PHP. El servidor comprueba la sesión, el token
+CSRF, el desbloqueo y la versión de misión. Ejecuta la lectura con qq_sandbox
+en queryquest_sandbox y compara el resultado con la referencia. Conserva los
+repetidos y exige orden cuando lo pide la consigna. Una transacción guarda el
+intento y actualiza progreso, puntos y logro. El navegador no recibe la solución.
+
+Límites: 5.000 bytes de consulta, 2 segundos de ejecución en MariaDB, 200 filas,
+20 columnas y 128 KiB de resultados. En esta etapa se escribe SELECT sin
+comentarios SQL. Las pruebas no equivalen a una certificación de seguridad.
+
+DÓNDE TRABAJA CADA UNO
+- Carla: server/php/ para cuentas, evaluación e intentos; server/db/ para datos.
+- Felipe: public/index.html, public/css/styles.css y public/assets/ para interfaz
+  y recursos; public/js/views/ para su presentación y controllers/ para eventos.
+- public/js/config.js centraliza las rutas de los dos personajes.
+- public/js/services/ApiClient.js centraliza cookies, token CSRF y peticiones.
+- server/php/LEEME.txt describe los archivos y las rutas del backend actual.
+- README.md contiene instalación, estructura y sustitución de imágenes.
+
+El código anterior de Express se conserva como referencia en server/app.js y
+sus carpetas config, controllers, middleware, models, routes y services.
+No se usa npm start para este recorrido. public/js/services sí se usa.
+
+COMPROBACIONES DESDE LA RAÍZ
+C:\xampp\php\php.exe server/php/check_connections.php
+C:\xampp\php\php.exe server/php/tests/retroalimentacion_tests.php
+El segundo comando incluye las pruebas del nivel Inicial y del evaluador.
+Los resultados están en server/php/tests/RESULTADOS.txt.
+
+ANTES DEL COMMIT
+- Revisar git status y git diff para conocer los archivos que se compartirán.
+- Incluir las semillas y actualizaciones SQL junto con el código que las utiliza.
+- .env.php-local contiene claves de este computador y debe permanecer ignorado.
+  La plantilla .env.php-local.example sí se comparte.
+- El commit comparte archivos; Felipe importa los SQL necesarios en su base local.
+- No se cambió la configuración de Git ni se ejecutaron commit o push.
+
+SI NO ABRE
+- Confirmar la dirección http://127.0.0.1:8080 y que la terminal siga abierta.
+- Si el puerto está ocupado, revisar la terminal: puede haber otro servidor
+  anterior abierto. Detener ese proceso desde su terminal antes de iniciar otro.
+- Si la página no refleja cambios de estilos, recargar con Ctrl+F5.
+- Si PHP no conecta, iniciar MySQL y ejecutar check_connections.php.
+- El parallax y las entradas al bajar se desactivan con movimiento reducido.
+
+SIGUIENTE ETAPA
+Faltan veinte misiones, panel docente, recuperación por correo, constancia y
+despliegue definitivo. El historial ya se guarda, pero falta su vista docente.
+La decisión de dejar el mapa abierto y la propuesta de misiones adicionales
+se conversarán con Felipe; esta versión mantiene el mapa desplegable.

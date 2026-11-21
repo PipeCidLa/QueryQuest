@@ -1,6 +1,4 @@
-// Player.js — Modelo del jugador para cabecera y campamento.
-// envuelve el objeto de GET /api/progreso para que las vistas
-// lean propiedades ya calculadas (xp, contador, nivel).
+// Datos del progreso y nivel que se muestran en el campamento.
 
 import { PERSONAJES } from '../config.js';
 
@@ -14,6 +12,7 @@ export class Player {
     this.misiones_completadas = dto.misiones_completadas ?? 0;
     this.total_misiones = dto.total_misiones ?? 30;
     this.logros = dto.logros ?? [];
+    this.catalogo_logros = dto.catalogo_logros ?? [];
   }
 
   get personaje() {

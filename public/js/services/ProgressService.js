@@ -1,5 +1,4 @@
-// ProgressService.js — Progreso y logros del jugador.
-// pide GET /api/progreso, construye un Player y lo guarda en GameState.
+// Carga el progreso desde PHP y lo guarda en el estado de la interfaz.
 
 import { ApiClient } from './ApiClient.js';
 import { estado } from '../state/GameState.js';

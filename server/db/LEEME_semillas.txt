@@ -4,6 +4,8 @@ Orden para una instalacion local nueva:
 1. Importar schema.app.sql y schema.sandbox.sql.
 2. Importar seed.sandbox.sql (dataset tabularia_v1).
 3. Importar seed.app.sql (regiones, logros y primera mision).
+4. Importar seed.region_inicial.sql (misiones 02 a 10).
+5. Importar actualizacion_pistas_inicial.sql (pistas mejoradas en versiones nuevas).
 
 Se puede importar cada archivo desde phpMyAdmin seleccionando Importar.
 Guardar los SQL en UTF-8. No ejecutar reset.sh para repetir la carga:
@@ -14,7 +16,7 @@ otro dataset. Si existen datos distintos, revisar antes de importar.
 
 Estado de esta etapa:
 - 3 regiones y 3 logros definidos.
-- Solo la mision 01 tiene contenido publicado. Las otras 29 siguen pendientes.
+- Las misiones 01 a 10 tienen contenido publicado. Las otras 20 siguen pendientes.
 - 10 habitantes y datos narrativos en las ocho tablas del sandbox.
 - catalogo_inicial es una cuenta tecnica de autoria, deshabilitada y sin
   contrasena de acceso distribuida. No es una cuenta de Carla ni de Felipe.
@@ -33,3 +35,7 @@ ya esten implementadas o evaluadas.
 
 No modificar tabularia_v1 despues de utilizarlo en evaluaciones: cualquier
 cambio posterior de sus datos debe gestionarse como una nueva version.
+
+Las pistas 06, 07 y 10 se publican en la version 2. Las versiones anteriores
+se archivan y permanecen asociadas a sus intentos. Repetir la actualizacion
+no vuelve a crear versiones cuando el texto ya coincide.

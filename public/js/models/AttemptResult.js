@@ -1,7 +1,4 @@
-// AttemptResult.js — Modelo del resultado de ejecutar una consulta.
-// normaliza la respuesta de POST /api/misiones/:id/ejecutar
-// (estado, columnas, filas, retroalimentación, XP, primera_vez).
-
+// Resultado de la evaluación: filas, mensaje, recompensa y logro obtenido.
 
 const ESTADOS_OK = new Set(['correcto']);
 
@@ -14,6 +11,7 @@ export class AttemptResult {
     this.tiempo_ms = dto.tiempo_ms ?? null;
     this.xp_otorgado = dto.xp_otorgado ?? 0;
     this.primera_vez = Boolean(dto.primera_vez);
+    this.logro_nuevo = dto.logro_nuevo ?? null;
     this.hay_siguiente = Boolean(dto.hay_siguiente);
   }
 

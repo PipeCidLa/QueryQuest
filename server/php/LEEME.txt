@@ -1,13 +1,38 @@
 QUERYQUEST - CONEXIONES PHP
 
-Esta etapa prepara la conexión y los permisos. Todavía no reemplaza las rutas
-Express ni permite entrar al juego desde PHP. No se instala ninguna dependencia.
+Estos archivos preparan la conexión y los permisos. La primera región ya se
+ejecuta desde el frontend mediante las rutas de api.php. Consulta GUIA_DE_USO.txt
+en la raíz para iniciar el avance funcional. No se instala ninguna dependencia PHP.
 
 Archivos de server/php:
-- config.php: lee y valida la configuración local.
-- conexiones.php: abre PDO para la aplicación y el entorno de práctica.
-- setup_local.php: crea las cuentas MySQL locales y genera sus claves.
-- check_connections.php: verifica conexiones y permisos desde la terminal.
+- api.php: recibe las peticiones y dirige cada ruta.
+- sesion.php y validaciones.php: cuentas, contraseñas, sesiones y reglas de acceso.
+- http.php: respuestas JSON, errores y límites de peticiones.
+- catalogo.php: regiones, misiones, versiones y progreso del estudiante.
+- evaluador.php: SELECT permitido, ejecución limitada y comparación del resultado.
+- criterios.php: criterio admitido para cada misión y versión publicada.
+- retroalimentacion.php: mensajes sobre errores de SQL y resultados incorrectos.
+- intentos.php: transacción de intentos, puntos y logros.
+- config.php y conexiones.php: configuración local y conexiones PDO separadas.
+- router.php: sirve public/ y envía /api/ a api.php en el servidor integrado.
+- setup_local.php: crea las cuentas de base de datos y sus claves locales.
+- check_connections.php: comprueba conexiones y permisos desde la terminal.
+- tests/: pruebas de evaluación y registro de resultados.
+
+Rutas utilizadas por la interfaz:
+GET   /api/auth/sesion
+POST  /api/auth/registro
+POST  /api/auth/login
+POST  /api/auth/logout
+GET   /api/regiones
+GET   /api/progreso
+PATCH /api/usuarios/me
+GET   /api/misiones/{id}
+POST  /api/misiones/{id}/ejecutar
+
+La sesión entrega el token CSRF. Las peticiones que cambian datos lo envían en
+X-CSRF-Token. Las rutas de regiones, progreso, perfil y misiones requieren una
+cuenta activa de estudiante. El panel docente sigue pendiente.
 
 Preparación en el computador de Felipe:
 1. Iniciar el servidor MySQL/MariaDB de XAMPP.
@@ -20,7 +45,14 @@ Preparación en el computador de Felipe:
 setup_local.php utiliza por defecto root sin contraseña en 127.0.0.1:3306,
 como la instalación local comprobada. Si el administrador es diferente, pasar
 DB_SETUP_HOST, DB_SETUP_PORT, DB_SETUP_USER y DB_SETUP_PASS como variables de
-entorno de la terminal. No guardar la clave de root en los archivos del proyecto.
+entorno de la terminal. Por ejemplo, en PowerShell:
+$env:DB_SETUP_USER = "administrador_local"
+$env:DB_SETUP_PASS = Read-Host "Clave del administrador" -MaskInput
+C:\xampp\php\php.exe server/php/setup_local.php
+Remove-Item Env:DB_SETUP_PASS
+
+Read-Host -MaskInput requiere PowerShell 7. En otra terminal, usar su mecanismo
+de entrada segura de variables. No guardar la clave de root en los archivos del proyecto.
 La conexión de la aplicación nunca utiliza root.
 
 La configuración real se guarda en .env.php-local, fuera de public/, excluida de
@@ -44,5 +76,10 @@ Comprueba además una escritura de aplicación dentro de una transacción que
 se revierte. No deja cuentas, progreso ni intentos de prueba. Puede avanzar el
 contador AUTO_INCREMENT; los identificadores no tienen que ser consecutivos.
 
-Pendiente: evaluador SQL con límites de tiempo y filas, sesiones, rutas PHP y
-conexión del frontend. Los permisos de lectura no sustituyen esos controles.
+El evaluador de las misiones 01 a 10, las sesiones y las rutas PHP están conectados.
+Las otras 20 misiones, el panel docente, la recuperación por correo y la
+constancia se implementarán en etapas posteriores. Los permisos de lectura
+se complementan con la validación y los límites de evaluador.php.
+
+Prueba completa del nivel Inicial y sus mensajes:
+C:\xampp\php\php.exe server/php/tests/retroalimentacion_tests.php

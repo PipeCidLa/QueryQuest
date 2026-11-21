@@ -1,0 +1,11 @@
+QUERYQUEST - ORGANIZACIÓN DEL SERVIDOR
+
+Backend actual: php/
+Estructuras y semillas compartidas: db/
+
+app.js y las carpetas config/, controllers/, middleware/, models/, routes/ y
+services/ pertenecen a la versión anterior con Express. Se conservan como
+referencia y no se cargan al ejecutar iniciar_php.bat.
+
+Para desarrollar el backend actual, trabajar en php/ y consultar php/LEEME.txt.
+La instalación y el arranque están en README.md, en la raíz del repositorio.

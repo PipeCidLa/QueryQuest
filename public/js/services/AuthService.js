@@ -1,11 +1,15 @@
-// AuthService.js — Registro, login y logout del estudiante.
-// habla con /api/auth/*, guarda el usuario en GameState y notifica.
-
+// Registro, acceso y cierre de sesión mediante la API PHP.
 
 import { ApiClient } from './ApiClient.js';
 import { estado, resetEstadoSesion } from '../state/GameState.js';
 
 export const AuthService = {
+  async restaurar() {
+    const { usuario } = await ApiClient.get('/auth/sesion');
+    estado.usuario = usuario;
+    return usuario;
+  },
+
   async registrar({ nombre_usuario, correo, password, nombre_visible, personaje }) {
     const { usuario } = await ApiClient.post('/auth/registro', {
       nombre_usuario, correo, password, nombre_visible, personaje,

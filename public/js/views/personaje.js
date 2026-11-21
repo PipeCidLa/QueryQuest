@@ -1,7 +1,4 @@
-// personaje.js — Pinta el sprite y nombre del personaje en toda la UI.
-// Qué hace: sincroniza los <img> y textos del personaje en pantalla de elección,
-//           campamento, mapa y misión a partir de PERSONAJES y GameState.
-// Qué NO hace: no decide qué personaje está activo (eso es controllers/entrada.js).
+// Muestra el personaje elegido en la entrada, la fogata, el mapa y la misión.
 
 import { PERSONAJES } from '../config.js';
 import { estado } from '../state/GameState.js';

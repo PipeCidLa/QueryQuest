@@ -1,11 +1,11 @@
 {
   "name": "queryquest",
   "version": "0.1.0",
-  "description": "Juego educativo para aprender SQL resolviendo misiones en el Reino de Datos.",
+  "description": "Referencia del backend anterior con Express. El avance actual se ejecuta con iniciar_php.bat.",
   "type": "module",
   "private": true,
   "license": "MIT",
-  "author": "Tu Nombre <tu.correo@universidad.edu>",
+  "author": "Carla Rosso y Felipe Cid",
   "engines": {
     "node": ">=20.0.0"
   },

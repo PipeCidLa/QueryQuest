@@ -1,7 +1,4 @@
-// Mission.js — Modelo de misión (versión vigente publicada).
-// Qué hace: describe la forma de una misión que llega de GET /api/misiones/:id
-//           y expone helpers de presentación (etiqueta de etapa, textos).
-// Qué NO hace: no pide datos (eso es MissionService), no pinta DOM (eso es views/mision.js).
+// Datos de la versión publicada de una misión y textos de presentación.
 
 export class Mission {
   constructor(dto) {
@@ -13,6 +10,7 @@ export class Mission {
     this.region_nombre = dto.region_nombre;
     this.contexto_narrativo = dto.contexto_narrativo;
     this.consigna = dto.consigna;
+    this.tablas = dto.tablas ?? [];
     this.pista = dto.pista ?? '';
     this.dataset_codigo = dto.dataset_codigo;
     this.xp_recompensa = dto.xp_recompensa;

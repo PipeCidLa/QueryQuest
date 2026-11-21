@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # =============================================================================
 # server/db/reset.sh
-# Recrea ambas bases y siembra datos. Requiere credenciales con permiso para
-# CREATE DATABASE (root o similar) y los .sql en este mismo directorio.
-# Uso: bash server/db/reset.sh
+# Carga histórica de estructuras y semillas para la versión Express.
+# No incluye las diez misiones ni la actualización de pistas del avance PHP.
+# Para la instalación actual, seguir LEEME_semillas.txt y README.md.
 # =============================================================================
 set -euo pipefail
 

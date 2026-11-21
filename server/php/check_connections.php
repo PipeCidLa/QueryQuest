@@ -69,7 +69,7 @@ try {
         $app->rollBack();
     }
     echo "OK: aplicación puede insertar, actualizar y eliminar; prueba revertida.\n";
-    echo "Conexiones y permisos comprobados. El evaluador web todavía no está conectado.\n";
+    echo "Conexiones y permisos comprobados. Para revisar las misiones, ejecuta tests/retroalimentacion_tests.php.\n";
 } catch (Throwable $error) {
     fwrite(STDERR, "Falló la comprobación de conexiones o permisos. No se muestran credenciales.\n");
     exit(1);

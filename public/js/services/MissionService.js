@@ -1,6 +1,4 @@
-// MissionService.js — Carga regiones/misiones y ejecuta consultas.
-// orquesta GET /api/regiones, GET /api/misiones/:id y
-// POST /api/misiones/:id/ejecutar, guardando el resultado en GameState.
+// Carga regiones y misiones; envía consultas y conserva su resultado.
 
 import { ApiClient } from './ApiClient.js';
 import { estado } from '../state/GameState.js';
@@ -23,7 +21,7 @@ export const MissionService = {
     if (!estado.misionActual) throw new Error('No hay misión abierta.');
     const dto = await ApiClient.post(
       `/misiones/${estado.misionActual.id_mision}/ejecutar`,
-      { consulta }
+      { consulta, id_version: estado.misionActual.id_version }
     );
     const resultado = new AttemptResult(dto);
     estado.siguienteMisionId = dto.hay_siguiente ? dto.siguiente_mision_id ?? null : null;

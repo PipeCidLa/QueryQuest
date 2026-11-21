@@ -1,8 +1,4 @@
-// =============================================================================
-// public/js/controllers/campamento.js
-// Controla la pantalla del campamento y la navegación del mapa.
-// Delega el clic de misión, abre la misión vía API y refresca el mapa.
-// =============================================================================
+// Controla el mapa, abre misiones y actualiza el avance desde PHP.
 
 import { $ } from '../utils/dom.js';
 import { mostrarVista, abrirMapa } from '../views/navegacion.js';
@@ -28,7 +24,9 @@ export async function refrescarMapaYHeader() {
     await ProgressService.refrescar();
     renderHeader();
     renderMapa(abrirMision);
-  } catch { /* silencioso: la próxima acción reintenta */ }
+  } catch (error) {
+    throw new Error(`No se pudo actualizar el avance: ${error.message}`);
+  }
 }
 
 export function initCampamento() {
@@ -43,8 +41,12 @@ export function initCampamento() {
   };
 
   $('volver-mapa').onclick = async () => {
-    await refrescarMapaYHeader();
-    abrirMapa(true);
-    mostrarVista('campamento', 'titulo-mapa');
+    try {
+      await refrescarMapaYHeader();
+      abrirMapa(true);
+      mostrarVista('campamento', 'titulo-mapa');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 }

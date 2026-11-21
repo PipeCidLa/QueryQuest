@@ -1,7 +1,4 @@
-// config.js — Constantes de UI y assets estáticos del front.
-// Qué hace: centraliza valores que NO vienen de la API (personajes, vistas, base de API).
-// Qué NO hace: no contiene datos de misiones ni de la BD; eso lo sirve el backend.
-// Quién lo usa: todos los módulos que necesitan saber vistas, personajes o la URL base.
+// Rutas de la API, pantallas y recursos de los personajes.
 
 export const API_BASE = '/api';
 

@@ -1,10 +1,5 @@
 <!doctype html>
-<!--
-  index.html — Punto de entrada del front.
-  Responsabilidad: estructura de las 4 pantallas (menú, personaje, campamento, misión).
-  NO contiene lógica: los IDs son el contrato que consumen las vistas (js/views/*)
-  y los controladores (js/controllers/*). El único script es el bootstrap modular.
--->
+<!-- Pantallas de entrada, personaje, campamento y misión. main.js conecta sus controles. -->
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -37,31 +32,40 @@
 
   <!-- Pantalla 1: menú de entrada -->
   <section id="vista-menu" class="pantalla-entrada" aria-labelledby="titulo-menu">
-    <form id="formulario-entrada" class="tarjeta-entrada">
+    <form id="formulario-entrada" class="tarjeta-entrada" novalidate>
       <div class="sobretitulo">Reino de Datos</div>
       <h1 id="titulo-menu" tabindex="-1">QueryQuest</h1>
-      <p>Tu aventura SQL comienza aquí.</p>
+      <p id="descripcion-acceso">Ingresa con tu usuario y contraseña para continuar tu aventura.</p>
 
       <div class="campo-nombre">
         <label for="nombre-usuario">Nombre de usuario</label>
-        <input id="nombre-usuario" type="text" maxlength="60" required
-               placeholder="Escribe tu usuario" autocomplete="username">
+        <input id="nombre-usuario" type="text" minlength="3" maxlength="60" required aria-describedby="mensaje-auth"
+               placeholder="De 3 a 15 caracteres" autocomplete="username">
       </div>
       <div class="campo-nombre">
         <label for="password">Contraseña</label>
-        <input id="password" type="password" minlength="6" required
-               placeholder="Escribe tu contraseña" autocomplete="current-password">
+        <input id="password" type="password" minlength="6" maxlength="72" required
+               placeholder="Mínimo 6 caracteres" autocomplete="current-password" aria-describedby="mensaje-auth">
       </div>
-      <div class="campo-nombre">
-        <label for="correo">Correo (para crear una cuenta)</label>
-        <input id="correo" type="email" maxlength="180"
-               placeholder="nombre@ejemplo.cl" autocomplete="email">
+      <div id="campos-registro" hidden>
+        <div class="campo-nombre">
+          <label for="nombre-visible">Nombre para mostrar</label>
+          <input id="nombre-visible" type="text" minlength="2" maxlength="100"
+                 placeholder="De 2 a 100 letras" autocomplete="nickname"
+                 aria-describedby="mensaje-auth">
+        </div>
+        <div class="campo-nombre">
+          <label for="correo">Correo electrónico</label>
+          <input id="correo" type="email" maxlength="180"
+                 placeholder="nombre@ejemplo.cl" autocomplete="email" aria-describedby="mensaje-auth">
+        </div>
       </div>
-      <p id="mensaje-auth" role="status" hidden></p>
+      <p id="mensaje-auth" role="alert" aria-live="assertive" hidden></p>
       <div class="acciones-entrada">
-        <button class="boton boton--principal" type="submit">Iniciar sesión</button>
+        <button class="boton boton--principal" type="submit" id="boton-acceso">Iniciar sesión</button>
         <button class="boton" type="button" id="boton-registro">Crear cuenta</button>
       </div>
+      <p id="ayuda-acceso" class="ayuda-acceso">¿Es tu primera vez? Selecciona «Crear cuenta» antes de completar el registro.</p>
     </form>
   </section>
 
@@ -94,48 +98,41 @@
       <!-- Pantalla 3: campamento y mapa -->
       <div id="vista-campamento" hidden>
 
-        <section class="panel campamento-cabecera">
-          <div>
+        <section class="panel campamento-portada" aria-labelledby="titulo-campamento">
+          <div class="campamento-cabecera">
             <div class="sobretitulo">Base del estudiante</div>
             <h1 id="titulo-campamento" tabindex="-1">Campamento</h1>
             <p id="bienvenida"></p>
-          </div>
-          <button id="volver-menu" class="boton">← Menú principal</button>
-        </section>
-
-        <div class="campamento-grid">
-          <section class="panel campamento-escena" aria-label="Fogata en el bosque">
-            <img class="campamento-fondo" src="assets/escenarios/campamento.svg" alt="Bosque nocturno en pixel art con una fogata">
-            <div class="campamento-personaje">
-              <img class="sprite" id="icono-campamento" src="assets/personajes/aventurero.png" alt="">
+            <div class="campamento-identidad">
               <strong id="jugador-campamento">Estudiante</strong>
               <small id="personaje-campamento">Aventurero</small>
             </div>
-          </section>
-
-          <div class="campamento-datos">
-            <div class="panel campamento-dato">
-              <span aria-hidden="true">◆</span>
-              <small>Nivel actual</small>
-              <strong id="nivel-campamento">Inicial</strong>
-            </div>
-            <div class="panel campamento-dato">
-              <span aria-hidden="true">✦</span>
-              <small>XP total</small>
-              <strong id="xp-campamento">0 XP</strong>
-            </div>
-            <div class="panel campamento-dato">
-              <span aria-hidden="true">▤</span>
-              <small>Misiones completadas</small>
-              <strong id="misiones-campamento">0 / 30</strong>
+            <button id="volver-menu" class="boton">← Menú principal</button>
+          </div>
+          <div class="campamento-escena" role="group" aria-label="Tu personaje junto a la fogata">
+            <img class="campamento-fondo" src="assets/escenarios/campamento.svg" alt="Bosque nocturno en pixel art con una fogata">
+            <!-- El personaje elegido se coloca junto a la fogata. -->
+            <div class="campamento-personaje">
+              <img class="sprite" id="icono-campamento" src="assets/personajes/aventurero.png" alt="Tu personaje">
             </div>
           </div>
+        </section>
+
+        <div class="campamento-datos" aria-label="Resumen de tu progreso">
+          <div class="campamento-dato"><small>Nivel actual</small><strong id="nivel-campamento">Inicial</strong></div>
+          <div class="campamento-dato"><small>XP total</small><strong id="xp-campamento">0 XP</strong></div>
+          <div class="campamento-dato"><small>Misiones completadas</small><strong id="misiones-campamento">0 / 30</strong></div>
+          <div class="campamento-avance"><label for="progreso-campamento">Avance de la aventura <span id="porcentaje-campamento">0 %</span></label><progress id="progreso-campamento" value="0" max="30"></progress></div>
         </div>
 
+        <div class="campamento-trabajo">
+          <div class="ruta-aventura">
         <section class="panel campamento-accion">
           <div>
-            <h2>Aventura actual</h2>
+            <div class="sobretitulo">Tu aventura</div>
+            <h2 id="destino-aventura">Aventura actual</h2>
             <p id="proxima-aventura">Cargando…</p>
+            <p id="estado-aventura" class="texto-menor" hidden></p>
           </div>
           <button id="alternar-mapa" class="boton boton--principal" aria-controls="vista-mapa" aria-expanded="false">◈ Abrir mapa</button>
         </section>
@@ -158,7 +155,7 @@
             </div>
 
             <div class="mapa-progreso">
-              <label class="texto-menor" for="progreso">Progreso de la demo</label>
+              <label class="texto-menor" for="progreso">Progreso de la aventura</label>
               <progress id="progreso" value="0" max="30"></progress>
             </div>
           </div>
@@ -181,9 +178,29 @@
                     d="M40 42h7v7h-7zm280 11h5v5h-5zm198 34h7v7h-7zm311-57h6v6h-6zm-40 178h5v5h-5zm-555 11h5v5h-5z"/>
             </svg>
             <!-- Los botones de región/misión los crea js/views/mapa.js -->
-            <nav class="mapa-ruta" id="ruta-misiones" aria-label="Regiones y misiones"></nav>
+            <nav class="mapa-ruta" id="ruta-misiones" aria-label="Regiones de la aventura"></nav>
           </div>
+          <section id="region-detalle" class="region-detalle" hidden aria-labelledby="titulo-region">
+            <h3 id="titulo-region" tabindex="-1"></h3>
+            <p id="descripcion-region" class="texto-menor"></p>
+            <div id="lista-misiones" class="lista-misiones"></div>
+          </section>
         </section>
+          </div>
+          <section class="campamento-recompensas" aria-label="Logros de la aventura">
+            <div class="ultimo-logro">
+              <img id="insignia-ultimo-logro" src="assets/logros/archivo.svg" alt="" width="50" height="50" hidden>
+              <div><div class="sobretitulo" id="etiqueta-ultimo-logro">Tu próximo logro</div><h2 id="nombre-ultimo-logro">El archivo en orden</h2><p id="detalle-ultimo-logro" class="texto-menor">Completa las diez misiones del archivo de Tabularia.</p></div>
+            </div>
+          <details id="panel-logros" class="campamento-logros">
+            <summary class="logros-cabecera">
+              <span id="titulo-logros" tabindex="-1">Ver todos los logros</span>
+              <span id="contador-logros" class="texto-menor">0 / 3 obtenidos</span>
+            </summary>
+            <div id="lista-logros" class="logros-grid"></div>
+          </details>
+          </section>
+        </div>
 
       </div>
 
@@ -219,7 +236,7 @@
             <p id="objetivo" class="objetivo"></p>
 
             <h2><label for="sql">Editor SQL</label></h2>
-            <textarea id="sql" spellcheck="false" autocomplete="off"
+            <textarea id="sql" spellcheck="false" autocomplete="off" maxlength="5000"
                       placeholder="Escribe tu consulta SQL aquí"></textarea>
 
             <div class="acciones">
@@ -237,7 +254,7 @@
             </div>
 
             <details class="datos">
-              <summary>Ver tablas del sandbox</summary>
+              <summary>Ver estructura de las tablas</summary>
               <div class="tabla-contenedor" id="tabla-datos">
                 <p class="texto-menor">Consulta la estructura de la base de práctica desde tu editor.</p>
               </div>
@@ -252,7 +269,20 @@
     </main>
   </div>
 
-  <!-- Bootstrap modular: main.js importa el resto -->
+  <dialog id="cierre-region" class="cierre-region" aria-labelledby="cierre-titulo" aria-describedby="cierre-historia">
+    <button id="cerrar-cierre" class="cerrar-cierre" type="button" aria-label="Cerrar resumen de la región">×</button>
+    <img class="insignia-cierre" src="assets/logros/archivo.svg" alt="Insignia del archivo de Tabularia" width="96" height="96">
+    <p class="sobretitulo">Región completada</p>
+    <h2 id="cierre-titulo">El archivo en orden</h2>
+    <p id="cierre-historia"></p>
+    <p id="cierre-resumen" class="cierre-resumen"></p>
+    <div class="acciones-entrada">
+      <button id="cierre-campamento" class="boton boton--principal" type="button">Volver al campamento</button>
+      <button id="cierre-continuar" class="boton" type="button" hidden>Continuar al almacén</button>
+    </div>
+  </dialog>
+
+  <!-- Inicio de los módulos de la interfaz -->
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
